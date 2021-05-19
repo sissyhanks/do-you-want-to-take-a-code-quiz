@@ -8,43 +8,30 @@
 // creates h1 element and writes quiz headline to it
 // creates p element and writes quiz directions to it
 // creates start button and writes "start" to it
-
-var startPage = {
-body: document.body,
-h1Headline: document.createElement("h1"),
-directions: document.createElement("p"),
-button: document.createElement("button"),
-
-question: "Do you want to take a quiz?",
-instructions: "How to take the quiz.",
-startButton: "start",
-
-moveOn: function (){
-    delete startPage;
-    quizItem.runQuiz();
-},
-
-// startButton.addEventListener("click", this.moveOn),
-
-
-startQuiz: function (){
-    this.h1Headline.textContent = this.question;
-    document.body.appendChild(this.h1Headline);
-    this.directions.textContent = this.instructions;
-    document.body.appendChild(this.directions);
-    this.button.textContent = this.startButton;
-    document.body.appendChild(this.button);
-    this.startButton.addEventListener("click", this.moveOn());
-},
+var startScreen = document.querySelector("#start-screen");
+var quizScreen = document.querySelector("#quiz-screen");
+var acceptInvitation = document.querySelector("#start-button");
 
 
 
+// function takeTheQuiz () {
+//     startScreen.setAttribute("style", "visibility:hidden");
+//     quizScreen.setAttribute("style", "visibility:visible");
+//     quizItem.runQuiz()
+// }
 
-//   var elem = document.getElementById("myDiv");
-//   elem.remove();
+acceptInvitation.addEventListener("click", onclick="href='/quiz.html'");
 
 
-}
+
+var askQuestion = document.querySelector("#question");
+var buttonOne = document.querySelector("#button-one");
+var buttonTwo = document.querySelector("#button-two");
+var buttonThree = document.querySelector("#button-three");
+var buttonFour = document.querySelector("#button-four");
+
+
+
 
 // var quizItem script:
 // creates h1 element and writes quiz question to it
@@ -52,52 +39,115 @@ startQuiz: function (){
 // randomly assigns answer selection to each button
 // changes display style of button displaying correct answer 
 var quizItem = {
-body: document.body,
-h1Headline: document.createElement("h1"),
-buttonOne: document.createElement("button"),
-buttonTwo: document.createElement("button"),
-buttonThree: document.createElement("button"),
-buttonFour: document.createElement("button"),
-
-question: "Which of the following is not a javascript data type:",
-right: "function",
-wrong1: "boolean", 
-wrong2: "number", 
-wrong3: "string",
+question: 
 choices: [],
 
-runQuiz: function (){
-    this.h1Headline.textContent = this.question;
-    document.body.appendChild(this.h1Headline);
-    this.choices.push(this.right, this.wrong1, this.wrong2, this.wrong3);
-    this.choices.sort(() => Math.random() - 0.5);  
-    this.buttonOne.textContent = this.choices[0];
-    document.body.appendChild(this.buttonOne);  
-    this.buttonTwo.textContent = this.choices[1];
-    document.body.appendChild(this.buttonTwo);  
-    this.buttonThree.textContent = this.choices[2];
-    document.body.appendChild(this.buttonThree);  
-    this.buttonFour.textContent = this.choices[3];
-    document.body.appendChild(this.buttonFour); 
-    if (this.buttonOne.textContent === this.right) {
-        this.buttonOne.setAttribute("style", "color:white; background:black;");
-    } else if (this.buttonTwo.textContent === this.right) {
-        this.buttonTwo.setAttribute("style", "color:white; background:black;");
-    } else if (this.buttonThree.textContent === this.right) {
-        this.buttonThree.setAttribute("style", "color:white; background:black;");
-    } else if (this.buttonFour.textContent === this.right) {
-        this.buttonFour.setAttribute("style", "color:white; background:black;");
+
+}
+
+function runQuiz(){
+    askQuestion.textContent = quizItem.question;
+    document.body.appendChild(askQuestion);
+    quizItem.choices.push(quizItem.right, quizItem.wrong1, quizItem.wrong2, quizItem.wrong3);
+    quizItem.choices.sort(() => Math.random() - 0.5);  
+    buttonOne.textContent = quizItem.choices[0]; 
+    document.body.appendChild(buttonOne);
+    buttonTwo.textContent = quizItem.choices[1];
+    document.body.appendChild(buttonTwo);
+    buttonThree.textContent = quizItem.choices[2];  
+    document.body.appendChild(buttonThree);
+    buttonFour.textContent = quizItem.choices[3];
+    document.body.appendChild(buttonFour);
+    if (buttonOne.textContent === quizItem.right) {
+        buttonOne.setAttribute("style", "color:white; background:black;");
+    } else if (buttonTwo.textContent === quizItem.right) {
+        buttonTwo.setAttribute("style", "color:white; background:black;");
+    } else if (buttonThree.textContent === quizItem.right) {
+        buttonThree.setAttribute("style", "color:white; background:black;");
+    } else if (buttonFour.textContent === quizItem.right) {
+        buttonFour.setAttribute("style", "color:white; background:black;");
     }
 }
-}
 
-
-startPage.startQuiz();
-// quizItem.runQuiz();
-
+console.log(buttonOne.textContent);
+console.log(quizItem.right);
 
 
 
+
+
+// function halt (event){
+//     event.preventDefault();
+//     function test (x){
+//     if {
+//         console.log("hi");
+//     } else {
+//         console.log("bye");
+//     }
+// }
+// }
+
+// function (x) {
+//     if (x === quizItem.right){
+//         console.log("right");
+//     } else {
+//         console.log("wrong");
+//     }
+// }
+
+// function stop (event) {
+
+//     //  console.log("hi");
+// }
+
+// function listen () {
+//     stop;
+//     grade;
+// }
+
+buttonOne.addEventListener("click", function (event){
+    event.preventDefault();
+});
+buttonOne.addEventListener("click", function (buttonOne) {
+    if (buttonOne.textContent === quizItem.right){
+        console.log("right");
+    } else {
+        console.log("wrong");
+    }
+})
+
+buttonTwo.addEventListener("click", function (event){
+    event.preventDefault();
+});
+buttonTwo.addEventListener("click", function (buttonTwo) {
+    if (buttonTwo.textContent === quizItem.right){
+        console.log("right");
+    } else {
+        console.log("wrong");
+    }
+})
+
+buttonThree.addEventListener("click", function (event){
+    event.preventDefault();
+});
+buttonThree.addEventListener("click", function (buttonThree) {
+    if (buttonThree.textContent === quizItem.right){
+        console.log("right");
+    } else {
+        console.log("wrong");
+    }
+})
+
+buttonFour.addEventListener("click", function (event){
+    event.preventDefault();
+});
+buttonFour.addEventListener("click", function (buttonFour) {
+    if (buttonFour.textContent === quizItem.right){
+        console.log("right");
+    } else {
+        console.log("wrong");
+    }
+})
 
 
 
