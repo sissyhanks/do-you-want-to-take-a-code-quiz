@@ -1,45 +1,83 @@
+// declaring variables that grab the HTML elements manipulated by JS
+var quizBody = document.querySelector("#quiz-screen");
 var askQuestion = document.querySelector("#question");
 var buttonOne = document.querySelector("#button-one");
 var buttonTwo = document.querySelector("#button-two");
 var buttonThree = document.querySelector("#button-three");
 var buttonFour = document.querySelector("#button-four");
 var button = document.querySelector(".button");
-var clock = document.querySelector("#timer");
-var scoreCard = document.querySelector("#score");
-var timeLeft;
-var timeOff = 6;
-var timeInterval;
+var comeCorrect = document.querySelector("#feedback");
+var scoreList = document.querySelector("#list");
+
+// one function to disable all answer buttons
+function buttonsOff (){
+      buttonOne.disabled = true;
+      buttonTwo.disabled = true;
+      buttonThree.disabled = true;
+      buttonFour.disabled = true;
+}
+
+// one function to enable all answer buttons
+function buttonsOn (){
+      buttonOne.disabled = false;
+      buttonTwo.disabled = false;
+      buttonThree.disabled = false;
+      buttonFour.disabled = false;
+}
+
+// declaring variables related to score
 var scoreNumber = 0;
+var scoreTotal = 0;
 
-// Timer that counts down from 5
+// declaring variables related to timer
+var clock = document.querySelector("#timer");
+var timeLeft;
+var timeOff = 4;
+var timeInterval;
+
+// timer operation
+// starts at 60seconds
+// takes one second off every second
+// takes 4 seconds off for every wrong answer
+// if clock reaches zero timer display is changed and page elements will change to display final score by running the scoreForm function
 function countdown() {
-  timeLeft = 60;
-
-  // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+  timeLeft = 75;
+  clock.textContent = timeLeft;
   timeInterval = setInterval(function () {
-    // As long as the `timeLeft` is greater than 1
     if (timeLeft > 1) {
-      // Set the `textContent` of `timerEl` to show the remaining seconds
-      clock.textContent = timeLeft + ' seconds remaining';
-      // Decrement `timeLeft` by 1
-      timeLeft--;
-    } else if (timeLeft === 1) {
-      // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-      clock.textContent = timeLeft + ' second remaining';
+      clock.textContent = timeLeft;
       timeLeft--;
     } else {
-      // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-      clock.textContent = "GAME OVER";
-      // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
-      // Call the `displayMessage()` function
-    //   gameOver();
+      scoreForm();
+      clock.textContent = "You are out of time."
     }
   }, 1000);
 }
-
 countdown();
 
+// final score is the number of questions answered correctly plus the amount to seconds on timer
+function finalScore (){
+    scoreTotal = scoreNumber + timeLeft;
+}
+
+// function to run when questions are answered correctly
+// when a correct answer is given buttons are disabled and the feedback 'correct' is displayed for 3/4 of a second before next question is called
+comeCorrect.textContent = "Correct";
+comeCorrect.setAttribute ("style", "visibility: hidden")
+function peepCorrect (){{
+  buttonsOff ();
+  comeCorrect.setAttribute ("style", "visibility: visible");
+  setTimeout(() => {
+    moveOn();
+    comeCorrect.setAttribute ("style", "visibility: hidden");
+  }, 0750);}
+}
+
+// object constructor 
+// takes in question wording and answer options
+// randomizes order of answer options
+//  writes question to heading element and answer options to buttons
 class Questions {
     constructor(question, right, wrong1, wrong2, wrong3) {
         this.question = question;
@@ -64,8 +102,7 @@ class Questions {
     }
 }
 
-scoreCard.textContent = scoreNumber;
-
+// questions and answer options (correct answer is always first option)
 let question1 = new Questions("Which of the following is not a javascript data type:", "function", "boolean", "number", "string");
 
 let question2 = new Questions("what should this question be?", "this is my right answer", "this is not right", "this one is worse than right", "this one is wrong");
@@ -86,40 +123,101 @@ let question9 = new Questions("what is my name?", "bernie", "billy", "bud", "bud
 
 let question10 = new Questions("do you like cloth?", "i like cloth", "come", "on", "fhgwgods");
 
+// array of declared questions
 var choiceRun = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
+
+// declares the variable for the actively displayed question 
 var activeChoice = choiceRun[0];
 
 activeChoice.answerChoices();
 activeChoice.askQuestion();
 
+// function evaluates the number of the question being asked 
+// fires when an answer button is clicked
+// if there are more questions in the que (if i < choiceRun.length)
+// then the next answer will be presented and buttons will be turned on
+//  if not program will move on and display player's score & ask if they want to record it
 let i = 0;
 function moveOn (){
     i++;
     if (i >= choiceRun.length){
-        clearInterval(timeInterval);;
+      scoreForm();
+      clearInterval(timeInterval);
     } else{
-        activeChoice = choiceRun[i];
-        activeChoice.answerChoices();
-        activeChoice.askQuestion();
+      activeChoice = choiceRun[i];
+      activeChoice.answerChoices();
+      activeChoice.askQuestion();
+      buttonsOn();
     }
-}
+  }
 
+// evaluates answers when an answer button is clicked
+// TODO display WRONG if answer incorrectly
+// increases score and displays correct if answer is right
+// decreases time on clock if answer is wrong
 function grade(event) {
     var element = event.target;
     if (JSON.stringify(element.textContent) === JSON.stringify(activeChoice.right)){
         console.log("YES");
         scoreNumber++;
-        console.log(scoreNumber);
-        scoreCard.textContent = scoreNumber;
+        peepCorrect ();
+        console.log(scoreNumber)
     }
     else {
         console.log("no");
         timeLeft = timeLeft - timeOff;
+        moveOn();
     }
-    moveOn();
+    if (i >= choiceRun.length){
+      buttonsOff();
+    }
 }
 
+// answer button event listeners to run grade function
 buttonOne.addEventListener('click', grade);
 buttonTwo.addEventListener('click', grade);
 buttonThree.addEventListener('click', grade);
 buttonFour.addEventListener('click', grade);
+
+// declaring variables of the elements that will appear on screen after quiz ends
+var recordScore = document.createElement("form");
+var recordHowTo = document.createElement("p");
+var addName = document.createElement("input");
+var submit = document.createElement("button");
+
+// changes the elements of quiz screen one second after quiz ends
+// header remains, headline that normally displays question now displays score earned
+// button one replaced with from to submit initials to record high score
+// buttons 3-4 hidden
+function scoreForm() {
+  finalScore();
+  setTimeout(() => {
+    askQuestion.textContent = "You have earned a score of " + scoreTotal;
+    console.log(timeLeft)
+    quizBody.appendChild(buttonOne);
+    buttonOne.replaceWith(recordScore);
+    recordScore.appendChild(recordHowTo);
+    recordScore.appendChild(addName);
+    recordScore.appendChild(submit);
+    recordHowTo.textContent = "Record your score, if you dare.";
+    submit.textContent = "Submit";
+    buttonTwo.setAttribute ("style", "visibility: hidden");
+    buttonThree.setAttribute ("style", "visibility: hidden");
+    buttonFour.setAttribute ("style", "visibility: hidden");
+    button.setAttribute ("style", "visibility: hidden");
+    comeCorrect.setAttribute ("style", "visibility: hidden");
+  }, 1000);}
+
+// moves to final HTML page
+function scorePage() {
+  document.location.href = 'score.html';
+}
+
+// listener event for button submitting high score
+// records high score & initials 
+// moves on to high score page
+submit.addEventListener("click", function(event) {
+  event.preventDefault();
+  scorePage() });
+
+
