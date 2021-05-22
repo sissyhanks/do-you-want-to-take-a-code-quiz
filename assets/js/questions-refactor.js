@@ -7,7 +7,7 @@ var buttonThree = document.querySelector("#button-three");
 var buttonFour = document.querySelector("#button-four");
 var button = document.querySelector(".button");
 var comeCorrect = document.querySelector("#feedback");
-var scoreList = document.querySelector("#list");
+
 
 // one function to disable all answer buttons
 function buttonsOff (){
@@ -25,38 +25,12 @@ function buttonsOn (){
       buttonFour.disabled = false;
 }
 
+
+
 // declaring variables related to score
 var scoreNumber = 0;
 var scoreTotal = 0;
 
-// declaring variables related to timer
-var clock = document.querySelector("#timer");
-var timeLeft;
-var timeOff = 4;
-var timeInterval;
-
-// timer operation
-// starts at 60seconds
-// takes one second off every second
-// takes 4 seconds off for every wrong answer
-// if clock reaches zero timer display is changed and page elements will change to display final score by running the scoreForm function
-function countdown() {
-  timeLeft = 75;
-  clock.textContent = timeLeft;
-  timeInterval = setInterval(function () {
-    if (timeLeft > 1) {
-      clock.textContent = timeLeft;
-      timeLeft--;
-    } else {
-      clearInterval(timeInterval);
-      scoreForm();
-      clock.textContent = "You are out of time."
-    }
-  }, 1000);
-}
-countdown();
-
-// declaring variables related to score
 
 
 // final score is the number of questions answered correctly plus the amount to seconds on timer
@@ -76,10 +50,6 @@ function peepCorrect (){{
     comeCorrect.setAttribute ("style", "visibility: hidden");
   }, 0750);}
 }
-
-
-
-
 
 // object constructor 
 // takes in question wording and answer options
@@ -175,11 +145,9 @@ function grade(event) {
         timeLeft = timeLeft - timeOff;
         moveOn();
     }
-    
     if (i >= choiceRun.length){
       buttonsOff();
     }
-    
 }
 
 // answer button event listeners to run grade function
@@ -188,76 +156,3 @@ buttonTwo.addEventListener('click', grade);
 buttonThree.addEventListener('click', grade);
 buttonFour.addEventListener('click', grade);
 
-// declaring variables of the elements that will appear on screen after quiz ends
-var recordScore = document.createElement("form");
-var recordHowTo = document.createElement("p");
-var addName = document.createElement("input");
-var submit = document.createElement("button");
-
-// changes the elements of quiz screen one second after quiz ends
-// header remains, headline that normally displays question now displays score earned
-// button one replaced with from to submit initials to record high score
-// buttons 3-4 hidden
-function scoreForm() {
-  finalScore();
-  setTimeout(() => {
-    askQuestion.textContent = "You have earned a score of " + scoreTotal;
-    console.log(timeLeft)
-    quizBody.appendChild(buttonOne);
-    buttonOne.replaceWith(recordScore);
-    recordScore.appendChild(recordHowTo);
-    recordScore.appendChild(addName);
-    recordScore.appendChild(submit);
-    recordHowTo.textContent = "Record your score, if you dare.";
-    submit.textContent = "Submit";
-    buttonTwo.setAttribute ("style", "visibility: hidden");
-    buttonThree.setAttribute ("style", "visibility: hidden");
-    buttonFour.setAttribute ("style", "visibility: hidden");
-    button.setAttribute ("style", "visibility: hidden");
-    comeCorrect.setAttribute ("style", "visibility: hidden");
-  }, 1000);}
-
-
-
-// listener event for button submitting high score
-// records high score & initials 
-// moves on to high score page
-submit.addEventListener("click", function(event) {
-  event.preventDefault();
-  scorePage() });
-    
-  // var currentScoreIn = {
-  //   scoreInput: scoreTotal.value,
-  //   initialsInput: addName.value,
-  // };
-
-// localStorage.setItem("currentScoreIn", JSON.stringify(currentScoreIn));
-
-// // var currentScores = [];
-
-// var currentScoreOut = JSON.parse(localStorage.getItem("currentScoreIn"))
-
-// console.log(currentScoreOut);
-
-// // function (orderScores){
-// //   currentScores = push(currentScoreOut)
-// // }
-// // currentScores = push(currentScoreOut)
-
-// // function renderHighScores (){
-// //   for (var i = 0; i < currentScores.length; i++) {
-// //     var printScore = currentScores[i];
-
-// //     var li = document.createElement("li");
-// //     li.textContent = 
-// //   }
-// // }
-
-  // ;
-//   // renderLastGrade();
-
-
-
-  function scorePage() {
-  document.location.href = 'score.html';
-}

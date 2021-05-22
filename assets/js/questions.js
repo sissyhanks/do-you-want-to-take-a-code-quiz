@@ -7,7 +7,7 @@ var buttonThree = document.querySelector("#button-three");
 var buttonFour = document.querySelector("#button-four");
 var button = document.querySelector(".button");
 var comeCorrect = document.querySelector("#feedback");
-var scoreList = document.querySelector("#list");
+
 
 // one function to disable all answer buttons
 function buttonsOff (){
