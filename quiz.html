@@ -7,25 +7,47 @@
     <title>Code Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
-  <header>
-    <p id="timer"></p>
-    <p id="high-scores">High Scores</p>
-  </header>
+
   <body>
-    <div id="action-area">
-      <div id="quiz-screen">
-        <h1 id="question"></h1>
-        <button id="button-one" class="button"></button>
-        <button id="button-two" class="button"></button>
-        <button id="button-three" class="button"></button>
-        <button id="button-four" class="button"></button>
+    <header>
+      <div class="score-clock">
+        <p id="high-scores">High Scores</p>
+        <p id="timer"></p>
       </div>
-      <div id="feedback"></div>
+    </header>
+    <div id="crowded-house">
+      <div id="action-area" class="active">
+        <div id="sandwich-wrap">
+          <div id="feedfront-wrap">
+            <div id="feedfront">
+              <img
+                src="./assets/Images/wrong.png"
+                alt="jigsaw face says you are wrong"
+              />
+            </div>
+          </div>
+          <div id="button-card">
+            <div id="quiz-screen" class="meat">
+              <div id="form-screen">
+                <h1 id="question" class="headline"></h1>
+              </div>
+              <div id="feedback"></div>
+              <div class="button-stack">
+                <button id="button-one" class="button"></button>
+                <button id="button-two" class="button"></button>
+                <button id="button-three" class="button"></button>
+                <button id="button-four" class="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script src="./assets/js/questions-refactor.js"></script>
-    <script src="./assets/js/timer.js"></script>
+    <script src="./assets/js/questions.js"></script>
+
     <script src="./assets/js/form.js"></script>
-    <script src="./assets/js/storedScores.js"></script>
+    <script src="./assets/js/timer.js"></script>
+    <!-- <script src="./assets/js/storedScores.js"></script> -->
   </body>
 </html>

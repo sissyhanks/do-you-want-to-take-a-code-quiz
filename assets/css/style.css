@@ -1,3 +1,99 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header {
+  height: 10em;
+}
+
+.score-clock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 1em 0 1em;
+}
+
+.active {
+  display: flex;
+  justify-content: center;
+}
+
+#sandwich-wrap {
+  width: 75%;
+  height: 100px;
+  position: relative;
+}
+
+#feedfront-wrap {
+  z-index: 2;
+}
+
+#feedfront {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#button-card {
+  z-index: 9;
+}
+
+.meat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headline {
+  text-align: center;
+}
+
+#feedback {
+  text-align: center;
+  margin-top: 0.25em;
+  padding-bottom: 0.5em;
+}
+
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 8em;
+}
+
+.button {
+  width: auto;
+  margin: 1.5em, 0, 1.5em, 0;
+}
+
+.button:hover {
+  box-shadow: 0 0 0.2em 0.2em red;
+}
+
 .hide {
   visibility: hidden;
+}
+
+#feedfront-wrap,
+#button-card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#list {
+  list-style-type: none;
+  background-color: white;
+  color: black;
+  padding: 1em 2em;
+  border: solid red 5px;
+  border-radius: 10px;
 }

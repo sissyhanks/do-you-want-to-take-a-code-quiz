@@ -1,36 +1,31 @@
 var leaderBoard = document.querySelector("#list");
-var currentScoreIn = JSON.parse(localStorage.getItem(currentScoreIn));
-
-console.log(currentScoreIn);
-
-
-
-function highScoreBoard(){
-  var currentScoreOut = JSON.parse(localStorage.getItem("currentScoreIn"));
-  if (currentScoreOut !== null) {
-      var somethingNew = [currentScoreOut.addName, currentScoreOut.playerScore];
-   scoreList.push(somethingNew);
-
-    console.log(scoreList);
-  }
-}
-highScoreBoard();
+var scoreBoarded = localStorage.getItem("scoreLog");
+var finalList = JSON.parse(scoreBoarded);
 
 function savedScores (){
    
     leaderBoard.innerHTML = "";
-    for (var i = 0; i < scoreList.length; i++) {
+    for (var i = 0; i < finalList.length; i++) {
         
-        var recorded = scoreList;
+        var recorded = finalList[i];
+        
+        var recordedInitials = recorded.initialText;
+        var recordedScore = recorded.scoreNumber;
 
         var li = document.createElement("li");
-        li.textContent = recorded;
-        li.setAttribute("data-index", i)
+        li.textContent = recordedInitials + " - " + recordedScore;
+        // li.setAttribute();
 
         leaderBoard.appendChild(li);
 
-        console.log(recorded)
+        console.log(recordedInitials)
     }
 }
 
 savedScores();
+
+
+
+
+
+

@@ -1,4 +1,6 @@
 // declaring variables of the elements that will appear on screen after quiz ends
+
+var formScreen = document.querySelector("#form-screen");
 var recordScore = document.createElement("form");
 var recordHowTo = document.createElement("p");
 var addName = document.createElement("input");
@@ -12,18 +14,18 @@ function scoreForm() {
   finalScore();
   setTimeout(() => {
     askQuestion.textContent = "You have earned a score of " + scoreTotal;
-    console.log(timeLeft)
-    quizBody.appendChild(buttonOne);
-    buttonOne.replaceWith(recordScore);
+    console.log(timeLeft);
+    formScreen.appendChild(recordScore);
     recordScore.appendChild(recordHowTo);
     recordScore.appendChild(addName);
     recordScore.appendChild(submit);
     recordHowTo.textContent = "Record your score, if you dare.";
     submit.textContent = "Submit";
+    buttonOne.setAttribute ("style", "visibility: hidden");
     buttonTwo.setAttribute ("style", "visibility: hidden");
     buttonThree.setAttribute ("style", "visibility: hidden");
     buttonFour.setAttribute ("style", "visibility: hidden");
-    button.setAttribute ("style", "visibility: hidden");
+    // button.setAttribute ("style", "visibility: hidden");
     comeCorrect.setAttribute ("style", "visibility: hidden");
   }, 1000);}
 
@@ -32,20 +34,37 @@ function scorePage() {
   document.location.href = 'score.html';
 }
 
-// locally store score
-localStorage.setItem("playersScore", JSON.stringify(scoreTotal));
+
+
+// // locally store score
+// localStorage.setItem("playersScore", JSON.stringify(scoreTotal));
 
 // listener event for button submitting high score
 // records high score & initials 
 // moves on to high score page
 submit.addEventListener("click", function(event) {
   event.preventDefault();
-  scorePage() 
+  scorePage();
 
-  var currentScoreIn = {
-    addName: addName.value.trim(),
-    playerScore: scoreTotal,
-  };
+  thisScore = {
+    scoreNumber: scoreTotal,
+    initialText: addName.value
+  }
 
-  localStorage.setItem("currentScoreIn", JSON.stringify(currentScoreIn));
+    console.log(thisScore);
+
+  var scoreLog = localStorage.getItem("scoreLog");
+  if (scoreLog === null) {
+    scoreLog = {};
+  } else {
+    scoreLog = JSON.parse(scoreLog);
+  }
+
+
+
+  scoreLog.push(thisScore);
+  var scoreList = JSON.stringify(scoreLog);
+  localStorage.setItem("scoreLog", scoreList);
+
+  
 });

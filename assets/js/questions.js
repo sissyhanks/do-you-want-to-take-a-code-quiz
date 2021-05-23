@@ -7,6 +7,7 @@ var buttonThree = document.querySelector("#button-three");
 var buttonFour = document.querySelector("#button-four");
 var button = document.querySelector(".button");
 var comeCorrect = document.querySelector("#feedback");
+var comeWrong = document.querySelector("#feedfront");
 
 
 // one function to disable all answer buttons
@@ -25,36 +26,13 @@ function buttonsOn (){
       buttonFour.disabled = false;
 }
 
+
+
 // declaring variables related to score
 var scoreNumber = 0;
 var scoreTotal = 0;
 
-// declaring variables related to timer
-var clock = document.querySelector("#timer");
-var timeLeft;
-var timeOff = 4;
-var timeInterval;
 
-// timer operation
-// starts at 60seconds
-// takes one second off every second
-// takes 4 seconds off for every wrong answer
-// if clock reaches zero timer display is changed and page elements will change to display final score by running the scoreForm function
-function countdown() {
-  timeLeft = 75;
-  clock.textContent = timeLeft;
-  timeInterval = setInterval(function () {
-    if (timeLeft > 1) {
-      clock.textContent = timeLeft;
-      timeLeft--;
-    } else {
-      clearInterval(timeInterval);
-      scoreForm();
-      clock.textContent = "You are out of time."
-    }
-  }, 1000);
-}
-countdown();
 
 // final score is the number of questions answered correctly plus the amount to seconds on timer
 function finalScore (){
@@ -71,6 +49,16 @@ function peepCorrect (){{
   setTimeout(() => {
     moveOn();
     comeCorrect.setAttribute ("style", "visibility: hidden");
+  }, 0750);}
+}
+
+comeWrong.setAttribute ("style", "visibility: hidden")
+function peepWrong (){{
+  buttonsOff ();
+  comeWrong.setAttribute ("style", "visibility: visible");
+  setTimeout(() => {
+    moveOn();
+    comeWrong.setAttribute ("style", "visibility: hidden");
   }, 0750);}
 }
 
@@ -166,7 +154,7 @@ function grade(event) {
     else {
         console.log("no");
         timeLeft = timeLeft - timeOff;
-        moveOn();
+        peepWrong ();
     }
     if (i >= choiceRun.length){
       buttonsOff();
@@ -178,46 +166,4 @@ buttonOne.addEventListener('click', grade);
 buttonTwo.addEventListener('click', grade);
 buttonThree.addEventListener('click', grade);
 buttonFour.addEventListener('click', grade);
-
-// declaring variables of the elements that will appear on screen after quiz ends
-var recordScore = document.createElement("form");
-var recordHowTo = document.createElement("p");
-var addName = document.createElement("input");
-var submit = document.createElement("button");
-
-// changes the elements of quiz screen one second after quiz ends
-// header remains, headline that normally displays question now displays score earned
-// button one replaced with from to submit initials to record high score
-// buttons 3-4 hidden
-function scoreForm() {
-  finalScore();
-  setTimeout(() => {
-    askQuestion.textContent = "You have earned a score of " + scoreTotal;
-    console.log(timeLeft)
-    quizBody.appendChild(buttonOne);
-    buttonOne.replaceWith(recordScore);
-    recordScore.appendChild(recordHowTo);
-    recordScore.appendChild(addName);
-    recordScore.appendChild(submit);
-    recordHowTo.textContent = "Record your score, if you dare.";
-    submit.textContent = "Submit";
-    buttonTwo.setAttribute ("style", "visibility: hidden");
-    buttonThree.setAttribute ("style", "visibility: hidden");
-    buttonFour.setAttribute ("style", "visibility: hidden");
-    button.setAttribute ("style", "visibility: hidden");
-    comeCorrect.setAttribute ("style", "visibility: hidden");
-  }, 1000);}
-
-// moves to final HTML page
-function scorePage() {
-  document.location.href = 'score.html';
-}
-
-// listener event for button submitting high score
-// records high score & initials 
-// moves on to high score page
-submit.addEventListener("click", function(event) {
-  event.preventDefault();
-  scorePage() });
-
 
