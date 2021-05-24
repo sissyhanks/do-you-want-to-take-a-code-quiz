@@ -50,57 +50,38 @@ errorPic3.setAttribute("src", "./assets/Images/fake3.png");
 errorPic4.setAttribute("src", "./assets/Images/fake4.png");
 acceptInvitation.textContent = "Find Out";
 
-
-
-
-
-
-
-acceptInvitation.addEventListener("click", function(){
-    document.location.href = 'quiz.html';
-});
-
 let invitation = body;
 
-invitation.addEventListener("mouseenter", stopListening)
+invitation.addEventListener("mouseenter", stopListening);
 
 function stopListening () {
       setTimeout(() => {
-body.setAttribute ("style", "background-color:black;");
+body.setAttribute("style", "background-color:black;");
 headline.replaceWith(headline); 
 headline.textContent = "so you want to take a code quiz";
-headline.setAttribute ("style", "color:white; font-family: monospace;");
-// description.setAttribute ("style", "visibility, hide;");
-// jugsawFakeout.setAttribute ("style", "visibility, hide;");
+headline.setAttribute("style", "color:white; font-family:monospace; visibility:hidden;");
 description.replaceWith(jugsaw);
-
-jugsaw.setAttribute("src", "./assets/Images/jugsaw.png");
-// jugsaw.setAttribute ("style", "visibility, hide;");
 pictureGridFakeout.replaceWith(description);
 description.textContent = "take this code quiz";
-description.setAttribute ("style", "color:white; font-family: monospace;");
+description.setAttribute("style", "color:white; font-family:monospace; visibility:hidden;");
 acceptInvitation.textContent = "Start";
+acceptInvitation.setAttribute("style", "visibility:hidden;")
 
-
-// pictureGridFakeout.setAttribute ();
-// pictureGridFakeout.setAttribute ();
-// pictureGridFakeout.setAttribute ();
-// pictureGridFakeout.setAttribute ();
-// setTimeout(() => {
-// body.appendChild(startCard);
-// startCard.appendChild(headline);
-// startCard.appendChild(jugsawFakeout);
-// jugsawFakeout.appendChild(jugsaw);
-// startCard.appendChild(pictureGridFakeout);
-// pictureGridFakeout.appendChild(description);
-// startCard.appendChild(acceptInvitation);
-// jugsawFakeout.appendChild(jugsaw);
-// jugsaw.setAttribute("src", "./assets/Images/fake4.png");
-// setTimeout(() => {
-// headline.textContent = "so you want to take a code quiz";
-// headline.setAttribute ("style", "color: white")
-// }, 1000);
-// }, 1000);
-  }, 2000);
+setTimeout(() => {
+jugsaw.setAttribute("src", "./assets/Images/jugsaw.png")
+setTimeout(() => {
+headline.setAttribute("style", "visibility:visible;");
+setTimeout(() => {
+description.setAttribute("style", "visibility:visible;");
+setTimeout(() => {
+acceptInvitation.setAttribute("style", "visibility:visible;");
+acceptInvitation.addEventListener("click", function(){
+    document.location.href = 'quiz.html';
+});
+}, 1000);
+}, 1000);
+}, 1000);
+}, 1500);
+}, 1500);
 body.removeEventListener("mouseenter", stopListening);
         }

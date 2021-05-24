@@ -93,23 +93,23 @@ class Questions {
 // questions and answer options (correct answer is always first option)
 let question1 = new Questions("Which of the following is not a javascript data type:", "function", "boolean", "number", "string");
 
-let question2 = new Questions("what should this question be?", "this is my right answer", "this is not right", "this one is worse than right", "this one is wrong");
+let question2 = new Questions("What does DOM stand for?", "Document Object Model", "Do Onto Mothers", "Don't Over think Mainframe", "Diapers On Monkeys ");
 
-let question3 = new Questions("why?", "try bud dry", "why not", "why ask why", "not telling you");
+let question3 = new Questions("What is the name of something that evaluates into a single value?", "Expression", "Object", "String", "Window");
 
-let question4 = new Questions("can you even?", "i can't even", "i can odd", "can YOU even?", "no");
+let question4 = new Questions("What symbol is used for concatenation?", "+", "#", "&", "*");
 
-let question5 = new Questions("honestly?", "seriously", "lying", "honest to gog", "yep");
+let question5 = new Questions("What index number is the third item in an array?", "2", "3", "0", "6");
 
-let question6 = new Questions("have you seen my shoes?", "they are nice", "noi", "have yo seen your shoes", "why can't you keep track of things");
+let question6 = new Questions("What operator is used to test and see if two conditions are logical?", "&&", "||", "!!", "🖖🖖");
 
-let question7 = new Questions("come here often?", "i'm an aries", "where are we", "do we even exist", "no");
+let question7 = new Questions("Which of the following is not a mouse event?", "submit", "dblclick", "click", "mouseout");
 
-let question8 = new Questions("how will i know?", "when you dance ", "how will you no", "how will you not know", "i don't know");
+let question8 = new Questions("What is an array?", "An Object", "A Keyword", "An Operator", "An Event Listener");
 
-let question9 = new Questions("what is my name?", "bernie", "billy", "bud", "buddy");
+let question9 = new Questions("What type of statement must precede an else statement?", "An if Statement", "A Why Statement", "A Bank Statement", "An Unspoken Statement");
 
-let question10 = new Questions("do you like cloth?", "i like cloth", "come", "on", "fhgwgods");
+let question10 = new Questions("What do you call JavaScript when it is not behaving?", "European Computer Manufacturers Association Script", "Late for Dinner", "A Cab", "fhqwhgads");
 
 // array of declared questions
 var choiceRun = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
@@ -159,6 +159,7 @@ function grade(event) {
     if (i >= choiceRun.length){
       buttonsOff();
     }
+
 }
 
 // answer button event listeners to run grade function

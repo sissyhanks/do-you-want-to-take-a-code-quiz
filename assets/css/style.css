@@ -97,3 +97,11 @@ header {
   border: solid red 5px;
   border-radius: 10px;
 }
+
+.so-sad {
+  width: 60%;
+}
+
+.hide {
+  visibility: hidden;
+}

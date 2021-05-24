@@ -51,7 +51,7 @@ submit.addEventListener("click", function(event) {
     initialText: addName.value
   }
 
-    console.log(thisScore);
+      console.log(thisScore);
 
   var scoreLog = localStorage.getItem("scoreLog");
   if (scoreLog === null) {
@@ -60,11 +60,10 @@ submit.addEventListener("click", function(event) {
     scoreLog = JSON.parse(scoreLog);
   }
 
-
+  console.log(scoreLog);
 
   scoreLog.push(thisScore);
   var scoreList = JSON.stringify(scoreLog);
   localStorage.setItem("scoreLog", scoreList);
 
-  
 });
