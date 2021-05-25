@@ -1,3 +1,16 @@
+// script order
+// 1) script.js > connected to index.html
+// 2) timer.js > connected  to quiz.html
+// 3) questions.js > connected  to quiz.html
+// 4) form.js > connected  to quiz.html
+// 5) storedScores.js > ? unused file, things stop working when it is deleted
+// 6) score.js > connected to score.html
+
+// this is script.js > generates start screen elements + handles transformation and operation
+// the start page presents a fake version of a quiz start page
+// the used believes they are taking a personality quiz, but all elements change and they learn they are taking a horrifying JavaScript quiz
+// element transformation is triggered by the mouse rolling over the body of the page & is time delayed
+
 // start screen body elements
 var body = document.body;
 var startCard = document.createElement("div");
@@ -42,6 +55,7 @@ errorPic2.setAttribute("style", "margin-bottom:1em;");
 errorPic3.setAttribute("style", "margin-bottom:1em;");
 errorPic4.setAttribute("style", "margin-bottom:1em;");
 
+// fake start page content
 headline.textContent = "Code Quiz";
 description.textContent = "What does your most commonly generated JavaScript error say about you?";
 errorPic1.setAttribute("src", "./assets/Images/fake1.png");
@@ -50,12 +64,30 @@ errorPic3.setAttribute("src", "./assets/Images/fake3.png");
 errorPic4.setAttribute("src", "./assets/Images/fake4.png");
 acceptInvitation.textContent = "Find Out";
 
+
+// mouse enter event triggers element transformation > stopListening function stops the listener even after one firing 
+
+// i want the body of the web page to listen for cursor movement
 let invitation = body;
 
+// when the cursor moves over (mouseenter) the webpage (invitation) the stopListening function is fired
 invitation.addEventListener("mouseenter", stopListening);
 
+
+// slopListening function operation explained >>> notes also added at each point of operation within the function
+
+// the stop listening function starts a two second timer
+// after the time elapses all page elements are hidden, the background color changes and the content of all (still hidden) page elements are updated
+// each element's change from hidden to visible is wrapped inside of a time and nested so that as one element becomes visible the timer to making the next element visible begins
+// start button listener event is added at the same time it becomes visible (so the start button on the fake greeting screen is not live / won't take users to quiz body)
+// once the web page hears the cursor rolling over it the listener event is removed
+
 function stopListening () {
+
+// the stop listening function starts a two second timer
       setTimeout(() => {
+
+// after the time elapses all page elements are hidden, the background color changes and the content of all (still hidden) page elements are updated
 body.setAttribute("style", "background-color:black;");
 headline.replaceWith(headline); 
 headline.textContent = "so you want to take a code quiz";
@@ -67,6 +99,7 @@ description.setAttribute("style", "color:white; font-family:monospace; visibilit
 acceptInvitation.textContent = "Start";
 acceptInvitation.setAttribute("style", "visibility:hidden;")
 
+// each element's change from hidden to visible is wrapped inside of a time and nested so that as one element becomes visible the timer to making the next element visible begins
 setTimeout(() => {
 jugsaw.setAttribute("src", "./assets/Images/jugsaw.png")
 setTimeout(() => {
@@ -75,6 +108,7 @@ setTimeout(() => {
 description.setAttribute("style", "visibility:visible;");
 setTimeout(() => {
 acceptInvitation.setAttribute("style", "visibility:visible;");
+// start button listener event is added at the same time it becomes visible (so the start button on the fake greeting screen is not live / won't take users to quiz body)
 acceptInvitation.addEventListener("click", function(){
     document.location.href = 'quiz.html';
 });
@@ -83,5 +117,7 @@ acceptInvitation.addEventListener("click", function(){
 }, 1000);
 }, 1500);
 }, 1500);
+
+// once the web page hears the cursor rolling over it the listener event is removed
 body.removeEventListener("mouseenter", stopListening);
         }
